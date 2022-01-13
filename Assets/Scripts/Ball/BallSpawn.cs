@@ -8,7 +8,7 @@ public class BallSpawn : MonoBehaviour
 
     private int index;
 
-    [HideInInspector] public GameObject BallClone
+    [HideInInspector] public GameObject BallClone;
 
     void Start()
     {
