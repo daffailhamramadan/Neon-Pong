@@ -8,6 +8,8 @@ public class GameController : MonoBehaviour
 
     public enum GameState
     {
+        Start,
+
         Play,
 
         GameOver
@@ -17,24 +19,29 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
-        gameState = GameState.Play;
+        gameState = GameState.Start;
 
-        if(gameState == GameState.Play)
+        if(gameState == GameState.Start)
         {
-            Time.timeScale = 1f;
+            Time.timeScale = 0f;
         }
     }
 
     private void Update()
     {
+        if(gameState == GameState.Play)
+        {
+            Time.timeScale = 1f;
+        }
+
+        if (gameState == GameState.GameOver)
+        {
+            Time.timeScale = 0f;
+        }
+
         if (PlayerScore == 10 || EnemyScore == 10)
         {
             gameState = GameState.GameOver;
-        }
-
-        if(gameState == GameState.GameOver)
-        {
-            Time.timeScale = 0f;
         }
     }
 

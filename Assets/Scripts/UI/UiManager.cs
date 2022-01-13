@@ -12,6 +12,8 @@ public class UiManager : MonoBehaviour
 
     [SerializeField] private GameObject restartButton;
 
+    [SerializeField] private GameObject startButton;
+
     private void Update()
     {
         scoreText[0].text = gameController.PlayerScore.ToString();
@@ -31,6 +33,11 @@ public class UiManager : MonoBehaviour
         {
             restartButton.SetActive(true);
         }
+
+        if(gameController.gameState == GameController.GameState.Play)
+        {
+            startButton.SetActive(false);
+        }
     }
 
     public void RestartButton()
@@ -40,7 +47,9 @@ public class UiManager : MonoBehaviour
 
     public void StartButton()
     {
-        Time.timeScale = 1f;
+        gameController.gameState = GameController.GameState.Play;
     }
+
+
 
 }

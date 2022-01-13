@@ -10,6 +10,8 @@ public class BallSpawn : MonoBehaviour
 
     [HideInInspector] public GameObject BallClone;
 
+    [SerializeField] private GameController gameController;
+
     void Start()
     {
         index = Random.Range(index, RandomY.Length);
