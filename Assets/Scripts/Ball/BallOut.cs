@@ -13,7 +13,7 @@ public class BallOut : MonoBehaviour
         ballSpawn = GameObject.FindGameObjectWithTag("Respawn").GetComponent<BallSpawn>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Out"))
         {
