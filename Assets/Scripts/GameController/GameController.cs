@@ -6,6 +6,33 @@ public class GameController : MonoBehaviour
 
     [HideInInspector] public int EnemyScore; 
 
+    public enum GameState
+    {
+        Play,
+
+        GameOver
+    }
+
+    public GameState gameState;
+
+    private void Start()
+    {
+        gameState = GameState.Play;
+    }
+
+    private void Update()
+    {
+        if (PlayerScore == 10 || EnemyScore == 10)
+        {
+            gameState = GameState.GameOver;
+        }
+
+        if(gameState == GameState.GameOver)
+        {
+            Time.timeScale = 0f;
+        }
+    }
+
     public void AddPlayerScore (int score)
     {
         PlayerScore += score;
