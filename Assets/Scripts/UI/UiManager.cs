@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class UiManager : MonoBehaviour
@@ -8,6 +9,8 @@ public class UiManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI gameOverText;
 
     [SerializeField] private GameController gameController;
+
+    [SerializeField] private GameObject restartButton;
 
     private void Update()
     {
@@ -23,6 +26,16 @@ public class UiManager : MonoBehaviour
         {
             gameOverText.text = "You Lost!";
         }
+
+        if(gameController.gameState == GameController.GameState.GameOver)
+        {
+            restartButton.SetActive(true);
+        }
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(0);
     }
 
 }
