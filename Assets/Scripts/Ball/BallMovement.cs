@@ -12,12 +12,7 @@ public class BallMovement : MonoBehaviour
 
     [SerializeField] private float speed;
 
-    public Vector2 Direction
-    {
-        get;
-
-        set;
-    }
+    [HideInInspector] public Vector2 Direction;
 
     private void Awake()
     {
