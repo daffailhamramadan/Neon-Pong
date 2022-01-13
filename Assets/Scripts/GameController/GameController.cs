@@ -2,19 +2,9 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    public int PlayerScore
-    {
-        get;
+    [HideInInspector] public int PlayerScore;
 
-        private set;
-    }
-
-    public int EnemyScore
-    {
-        get;
-
-        private set;
-    }
+    [HideInInspector] public int EnemyScore; 
 
     public void AddPlayerScore (int score)
     {
