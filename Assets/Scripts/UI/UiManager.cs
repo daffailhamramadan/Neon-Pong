@@ -33,9 +33,14 @@ public class UiManager : MonoBehaviour
         }
     }
 
-    public void Restart()
+    public void RestartButton()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void StartButton()
+    {
+        Time.timeScale = 1f;
     }
 
 }
