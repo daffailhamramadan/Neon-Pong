@@ -21,10 +21,9 @@ public class BallMovement : MonoBehaviour
 
     private void Start()
     {
-        for(int i=0; i < index.Length; i++)
-        {
-            index[i] = Random.Range(index[i], RandomX.Length);
-        }
+        index[0] = Random.Range(index[0], RandomX.Length);
+
+        index[1] = Random.Range(index[1], RandomY.Length);
 
         Direction = new Vector2(RandomX[index[0]], RandomY[index[1]]);
     }
