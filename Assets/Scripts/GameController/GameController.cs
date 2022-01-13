@@ -18,6 +18,11 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         gameState = GameState.Play;
+
+        if(gameState == GameState.Play)
+        {
+            Time.timeScale = 1f;
+        }
     }
 
     private void Update()
