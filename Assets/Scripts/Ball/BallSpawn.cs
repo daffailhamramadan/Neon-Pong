@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class BallSpawn : MonoBehaviour
 {
+    public static BallSpawn instance { get; private set; }
+
     [SerializeField] private GameObject ball;
 
     private float[] RandomY = { -3, -2, -1, 0, 1, 2, 3 };
@@ -10,15 +12,16 @@ public class BallSpawn : MonoBehaviour
 
     [HideInInspector] public GameObject BallClone;
 
-    [SerializeField] private GameController gameController;
+    private void Awake()
+    {
+        instance = this;
+    }
 
     void Start()
     {
         index = Random.Range(index, RandomY.Length);
 
         transform.position = new Vector3(0, RandomY[index]);
-
-        InstantiateBall();
     }
 
     public void InstantiateBall()

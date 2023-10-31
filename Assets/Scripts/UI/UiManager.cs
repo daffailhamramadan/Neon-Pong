@@ -1,43 +1,47 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using DG.Tweening;
 
 public class UiManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI[] scoreText;
-
     [SerializeField] private TextMeshProUGUI gameOverText;
-
-    [SerializeField] private GameController gameController;
-
     [SerializeField] private GameObject restartButton;
+    [SerializeField] private TextMeshProUGUI startText;
 
-    [SerializeField] private GameObject startButton;
+    private bool GameOver => GameController.instance.gameState == GameController.GameState.GameOver;
+    private bool Play => GameController.instance.gameState == GameController.GameState.Play;
+
+    private void Start()
+    {
+        startText.DOFade(0, 0.5f).SetLoops(-1, LoopType.Yoyo);
+    }
 
     private void Update()
     {
-        scoreText[0].text = gameController.PlayerScore.ToString();
+        scoreText[0].text = GameController.instance.PlayerScore.ToString();
+        scoreText[1].text = GameController.instance.EnemyScore.ToString();
 
-        scoreText[1].text = gameController.EnemyScore.ToString();
-
-        if (gameController.PlayerScore == 10)
+        if (GameController.instance.PlayerScore == 10)
         {
             gameOverText.text = "You Win!";
         }
-        else if(gameController.EnemyScore == 10)
+        else if(GameController.instance.EnemyScore == 10)
         {
             gameOverText.text = "You Lost!";
         }
 
-        if(gameController.gameState == GameController.GameState.GameOver)
+        if(GameOver)
         {
             restartButton.SetActive(true);
         }
 
-        if(gameController.gameState == GameController.GameState.Play)
+        if(Play)
         {
-            startButton.SetActive(false);
+            StartText();
         }
+
     }
 
     public void RestartButton()
@@ -45,11 +49,9 @@ public class UiManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    public void StartButton()
+    public void StartText()
     {
-        gameController.gameState = GameController.GameState.Play;
+        startText.DOFade(0, 1).onComplete = () => startText.text = "";
     }
-
-
 
 }

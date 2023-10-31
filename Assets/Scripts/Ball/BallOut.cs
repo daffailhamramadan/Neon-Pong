@@ -2,30 +2,26 @@ using UnityEngine;
 
 public class BallOut : MonoBehaviour
 {
-    private GameController gameController;
-
-    private BallSpawn ballSpawn;
-
-    private void Start()
-    {
-        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
-
-        ballSpawn = GameObject.FindGameObjectWithTag("Respawn").GetComponent<BallSpawn>();
-    }
-
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Out"))
         {
-            gameController.AddEnemyScore(1);
+            GameController.instance.AddEnemyScore(1);
 
-            ballSpawn.InstantiateBall();
+            if(GameController.instance.gameState == GameController.GameState.Play && GameController.instance.EnemyScore <= 9)
+            {
+                BallSpawn.instance.InstantiateBall();
+            }
+            
         }
         else
         {
-            gameController.AddPlayerScore(1);
+            GameController.instance.AddPlayerScore(1);
 
-            ballSpawn.InstantiateBall();
+            if (GameController.instance.gameState == GameController.GameState.Play && GameController.instance.PlayerScore <= 9)
+            {
+                BallSpawn.instance.InstantiateBall();
+            }
         }
     }
 

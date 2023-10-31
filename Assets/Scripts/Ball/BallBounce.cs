@@ -11,14 +11,8 @@ public class BallBounce : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Paddle"))
-        {
-            ballMovement.Direction = new Vector2(-ballMovement.Direction.x, ballMovement.Direction.y);
-        }
+        AudioManager.instance.BallHitSFX();
 
-        if (collision.gameObject.CompareTag("Wall"))
-        {
-            ballMovement.Direction = new Vector2(ballMovement.Direction.x, -ballMovement.Direction.y);
-        }
+        ballMovement.Direction = Vector2.Reflect(ballMovement.Direction, collision.GetContact(0).normal);
     }
 }

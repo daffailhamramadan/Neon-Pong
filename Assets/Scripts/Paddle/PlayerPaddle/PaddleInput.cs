@@ -2,12 +2,7 @@ using UnityEngine;
 
 public class PaddleInput : MonoBehaviour
 {
-    public float Vertical
-    {
-        get;
-
-        private set;
-    }
+    public float Vertical { get; private set; }
 
     private void Update()
     {

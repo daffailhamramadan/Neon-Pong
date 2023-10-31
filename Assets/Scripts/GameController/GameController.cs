@@ -2,9 +2,11 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    [HideInInspector] public int PlayerScore;
+    public static GameController instance;
 
-    [HideInInspector] public int EnemyScore; 
+    public int PlayerScore;
+
+    public int EnemyScore; 
 
     public enum GameState
     {
@@ -17,30 +19,40 @@ public class GameController : MonoBehaviour
 
     public GameState gameState;
 
+    private bool isGameOver;
+
+    private bool PlayerWin => PlayerScore == 10 && isGameOver == false;
+    private bool EnemyWin => EnemyScore == 10 && isGameOver == false;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     private void Start()
     {
         gameState = GameState.Start;
-
-        if(gameState == GameState.Start)
-        {
-            Time.timeScale = 0f;
-        }
     }
 
     private void Update()
     {
-        if(gameState == GameState.Play)
+        if(Input.anyKeyDown && gameState == GameState.Start)
         {
-            Time.timeScale = 1f;
+            gameState = GameState.Play;
+            BallSpawn.instance.InstantiateBall();
+            AudioManager.instance.BackgroundMusic();
         }
 
-        if (gameState == GameState.GameOver)
+        if(PlayerWin)
         {
-            Time.timeScale = 0f;
+            AudioManager.instance.PlayerWinSFX();
+            isGameOver = true;
+            gameState = GameState.GameOver;
         }
-
-        if (PlayerScore == 10 || EnemyScore == 10)
+        else if (EnemyWin)
         {
+            AudioManager.instance.PlayerWinSFX();
+            isGameOver = true;
             gameState = GameState.GameOver;
         }
     }
